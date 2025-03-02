@@ -48,6 +48,7 @@ public class Shop : MonoBehaviour
     public TextMeshProUGUI spawner1PriceText;
     public TextMeshProUGUI spawner2PriceText;
     public TextMeshProUGUI spawner3PriceText;
+    public TextMeshProUGUI spawner3BuyPrice;
     public TextMeshProUGUI turretUpgradePriceText;
     public TextMeshProUGUI platformUpgradePriceText;
     public GameObject How2PlayScreen;
@@ -258,7 +259,7 @@ public class Shop : MonoBehaviour
     {
         if (haveSpawner3)
         {
-            spawner3PriceText.text = "Max";
+            spawner3BuyPrice.text = "Max";
         }
         else
         {

@@ -1,11 +1,12 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+
 
 public class Player : MonoBehaviour
 {
     [Header("Hammer Variables")]
     public GameObject hammerPivot;
-    public float knockbackPower;       
+    public float knockbackPower;
     public float swingDuration;
 
 
@@ -19,14 +20,16 @@ public class Player : MonoBehaviour
     private bool isSwinging;
     private GameManager gameManagerSc;
     public AudioSource hammerSound;
+    public Animator hammerAnimator;
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
     {
+
         hammerSound = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         GameObject gameManagerObject = GameObject.Find("GameManager");
@@ -42,14 +45,14 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
 
-    {      
+    {
         rb.linearVelocity = input * movementSpeed;
         if (player.transform.position.x < -8.20f)
             player.transform.position = new Vector2(-8.20f, player.transform.position.y);
         else if (player.transform.position.x > 8.20f)
             player.transform.position = new Vector2(8.20f, player.transform.position.y);
     }
-     
+
     void HandleSwing()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isSwinging)
@@ -78,20 +81,15 @@ public class Player : MonoBehaviour
             gameManagerSc.isComboActive = true;
         }
         if (gameManagerSc.comboCount == 0)
-        {            
+        {
             isSwinging = true;
-            Quaternion startRot = Quaternion.Euler(0, 0, -2);
-            Quaternion targetRot = Quaternion.Euler(0, 0, -45);
-
-            yield return RotateHammer(startRot, targetRot);
+            hammerAnimator.SetTrigger("Swing");
+            yield return new WaitForSeconds(0.80f);
             hammerSound.Play();
-            yield return RotateHammer(targetRot, startRot);
-
-            hammerPivot.transform.localRotation = startRot;
             isSwinging = false;
         }
-       
-       
+
+
     }
 
     IEnumerator RotateHammer(Quaternion from, Quaternion to)
@@ -99,7 +97,7 @@ public class Player : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < swingDuration)
         {
-            hammerPivot.transform.localRotation = Quaternion.Slerp(from, to, elapsed/swingDuration);
+            hammerPivot.transform.localRotation = Quaternion.Slerp(from, to, elapsed / swingDuration);
             elapsed += Time.deltaTime;
             yield return null;
 

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     AudioSource clickSource;
 
     [Header("UI")]
+    public TextMeshProUGUI comboTextMiddle;
     public TextMeshProUGUI comboCounter;
     public TextMeshProUGUI goldCounter;
     public TextMeshProUGUI notificationScreen;
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
         lastComboTime = Time.time;
         comboCount++;
         comboCounter.text = comboCount.ToString();
+        comboTextMiddle.text = comboCount.ToString();
 
         if (comboCount == 1000)
         {
@@ -93,6 +95,7 @@ public class GameManager : MonoBehaviour
         {
             lastComboCount = comboCount;            
             comboCount = 0;
+            comboTextMiddle.text = "";
             comboCounter.text = comboCount.ToString();
             AddGold();
         }

@@ -266,6 +266,7 @@ public class Shop : MonoBehaviour
             clickSource.Play();
             if (spawner3.gameObject.activeSelf == false && gameManagerSc.currentGold >= 5000)
             {
+                CloseShop();
                 gameManagerSc.currentGold -= 5000;
                 UpdateGoldAmount();
                 spawner3.gameObject.SetActive(true);
@@ -282,6 +283,7 @@ public class Shop : MonoBehaviour
         proximityPrice = proximityBought * priceMultiplier;
         if (gameManagerSc.currentGold >= proximityBought * priceMultiplier)
         {
+            CloseShop();
             gameManagerSc.currentGold -= proximityBought * priceMultiplier;
             UpdateGoldAmount();
             currentItem = Instantiate(proximityPrefab);
